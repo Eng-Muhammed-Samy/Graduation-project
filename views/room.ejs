@@ -1,0 +1,320 @@
+<%- include('parts/header')%>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+    <script>
+        const ROOM_ID = "<%= roomid %>";
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/meetingHome.css">
+    <!-- socket CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        ul {
+            padding-left: 0px;
+        }
+    </style>
+    </head>
+
+    <body>
+
+        <div class="container-fluid" style="position: relative;" style="height: 100vh;">
+            <div class="row" style="position: relative;" style="height: 100vh;">
+
+                <!-- ------------------- start video window ----------------------- -->
+                <div class="col-12 flex-column" style="background-color: rgb(27, 27, 21)">
+
+
+                    <!-- header -->
+                    <div class="head" style="background: rgba(40, 40, 40, 0.75);padding:0px 40px; border-radius:10px">
+                        <div class="row justify-content-around">
+                            <!-- image and name  -->
+                            <div class="col-3 imageAndName">
+                                <div class="pic"> <img alt="User Pic" src="http://localhost:3000/upload_images/<%=pro_img%>" class="profile_img">
+                                </div>
+                                <label id="logedInUser">
+                                    <%= loggedinuser%>
+                                </label>
+
+
+                            </div>
+                            <!-- free space -->
+                            <div
+                                class="col-5 d-flex justify-content-center align-items-center text-light d-none d-sm-flex">
+                                <p style="font-size: 30px;">
+                                    <span class="text-primary bordertext border-primary">E</span>
+                                    <span class="text-light bordertext border-light">I</span>
+                                    <span class="text-danger bordertext border-danger">R</span>
+                                    <span class="text-light bordertext border-light">A</span>
+                                    <span class="text-primary bordertext border-primary">Q</span>
+                                </p>
+                            </div>
+                            <!-- chat and participant buttons -->
+                            <div class="col-3 chatAndParticipantControlls">
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" id="votingButton"
+                                        class="btn btn-sm btn-outline-light  m-2 rounded-circle"><i
+                                            class="fas fa-poll"></i></button>
+
+                                    <button type="button" id="qurtUsers"
+                                        class=" btn btn-sm btn-outline-light rounded-circle m-1"> <i
+                                            class="fas fa-user-friends"></i></button>
+
+                                    <button type="button" id="qurtChat"
+                                        class=" btn btn-sm btn-outline-light rounded-circle m-1"> <i
+                                            class="fas fa-comment-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- peers -->
+                    <div class="backgroundPeers" style="height: 12vh">
+                        <div id="carouselExampleSlidesOnly" class="carousel" data-bs-ride="carousel">
+                            <div class="carousel-inner" style="overflow-x: scroll; z-index: 650;">
+                                <div id="user-video-grid" class="peerVideo carousel-item active d-flex flex-row"
+                                    style="height: 12vh;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- video col -->
+                    <div class="backgroundMyVideo" style="height: 80vh; position: relative;">
+                        <div style="position: relative;">
+                            <div class="btn-group dropend "
+                                style="position: absolute; top: 10px; left: 20px; z-index: 500;">
+                                <!-- fatma khaled -->
+                                <button type="button" class="col btn border-0 btn-sm btn-outline-light m-2 rounded-circle"
+                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="fa fa-info-circle"></i></button>
+                                <br>
+                                <!-- mohammed gamal speech to text -->
+                                <button title="Speech to text" id="speech_to_text" type="button"
+                                    class="col btn border-0 btn-sm btn-outline-light rounded-circle "><i class="far fa-closed-captioning"></i></button>
+                                <ul class="dropdown-menu list ">
+                                    <% if(typeof meetinginfo!='undefined' ) { %>
+
+                                        <li class="dropdown-item listItems">
+                                            Meeting Id : <%= meetinginfo.meetingid%>
+                                        </li>
+
+                                        <li class="dropdown-item listItems">
+                                            Host : <%= meetinginfo.hostname%>
+                                        </li>
+                                        <li class="dropdown-item listItems">
+                                            passcode : <%= meetinginfo.password%>
+                                        </li>
+                                        <li class="dropdown-item listItems">
+
+                                            URL : <%= meetinginfo.meetingurl%>
+                                        </li>
+                                        <% } %>
+                                </ul>
+                            </div>
+                            <div id="video-grid">
+                                <video id="mainVideo" controls autoplay style="height: 70vh;" controls=""></video>
+                            </div>
+                            </div>
+                            <!-- Mohammed Gamal's Speech to text line-height: 1.5em; height: 3em; overflow: hidden; -->
+                            <div id="stt_container" class="jumbotron-fluid"
+                                style="display: none; font-size: 120% ;font-style:oblique; font-weight: bold;width: 80%; position: absolute; bottom: 150px; left: 120px; z-index: 5000; word-wrap:break-word; color: white; ">
+                            </div>
+
+                    </div>
+
+                    <!-- controls -->
+                    <div class="controlers">
+                        <div class="container"
+                            style="background: rgba(40, 40, 40, 0.75);padding:0px 40px; border-radius:10px">
+                            <div class="row justify-content-between align-items-center">
+                                <!-- mute and stop video -->
+
+                                <div class="col-3 d-flex justify-content-center">
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                        <button id="mute" type="button show" onclick="muteUnmute()"
+                                            class="controlls_buttons main__mute_button btn btn-sm btn-outline-light m-2 rounded-circle">
+                                            <i class="fas fa-microphone"></i></button>
+                                        <button id="stop" type="button show" onclick="playStop()"
+                                            class="controlls_buttons main__video_button btn btn-sm btn-outline-light m-2 rounded-circle"><i
+                                                class="fas fa-video"></i></button>
+                                    </div>
+
+                                </div>
+
+                                <!-- mohammed gamal attendance -->
+                                <div class="col-6 d-flex justify-content-center">
+                                    <div id="options" class="row d-none d-md-flex">
+                                        <div class="col-12 col-md-2">
+                                            <button type="button" title="Share Link"
+                                                class="btn btn-sm btn-outline-light m-2 rounded-circle"><i
+                                                    class="fas fa-link"></i></button>
+                                        </div>
+                                        <!-- khiry -->
+                                        <div class="col-12 col-md-2">
+                                            <button id="shareScreen" type="button" title="Share Screen"
+                                                class="btn btn-sm btn-outline-light  m-2 rounded-circle"><i
+                                                    class="fas fa-share-square"></i></button>
+                                        </div>
+                                        <!-- khiry -->
+                                        <div class="col-12 col-md-2 ">
+                                            <button id="recordScreen" type="button" title="Record Screen"
+                                                class="btn btn-sm btn-outline-light m-2  rounded-circle"><i
+                                                    class="fas fa-record-vinyl"></i></button>
+                                        </div>
+                                        <!--Mohammed Gamal Raise Hand-->
+                                        <div class="col-12 col-md-2">
+                                            <button id="raiseHand_btn" title="Raise Hand" type="button"
+                                                class="btn btn-sm btn-outline-light  m-2 rounded-circle"><i
+                                                    id="raiseHand" class="fas fa-hand-paper"></i></button>
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <button id="attendence" type="button" title="Attendence"
+                                                class="btn btn-sm btn-outline-light  m-2 rounded-circle"><i
+                                                    class="fas fa-file-alt "></i></button>
+                                        </div>
+                                        <!-- mohammed ismail
+                                        <div class="col-12 col-md-2">
+                                            <button type="button" class="btn btn-sm btn-outline-light  m-2 rounded-circle"><i class="fas fa-poll"></i></button>
+                                        </div> -->
+                                    </div>
+                                    <div class="d-block d-md-none">
+                                        <i id="dotted" class="text-light fas fa-ellipsis-h"></i>
+                                    </div>
+                                </div>
+                                <!-- exit -->
+                                <div class="col-2 d-flex justify-content-center">
+                                    <form action="/leavemeeting" method="POST">
+                                        <input type="submit" class="leave" value="leavemeeting">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ----------------------- End video window --------------------- -->
+
+                <%- include('parts/vote')%>
+                    <!-- ----------------------Start chat-------------------------- -->
+                    <div id="chatBlok" class="chat hide">
+                        <div class="text row">chat</div>
+                        <div class="row">
+                            <div class="chatStyle">
+                                <ul id="chat" class="text-light ">
+                                    <li>
+
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="input row d-flex">
+                            <input class="room-chat" type="text " placeholder="Type message... " name=" " id=" ">
+                        </div>
+                        <div class="wrapper">
+                           
+                        <form id="form" style="display: contents; position: relative;">
+                            <label style="    color: white;position: absolute;top: 10%; left: -60%;" for="files" class="btn btn-sm  "><i class="fas fa-file"></i></label>
+                            <input id="files" style="visibility:hidden;" type="file" name="file">
+                            <button style="position: absolute;top: 22%;right: 0%;outline: none; border: none;background: transparent;color: white;" type="submit"><i class="fas fa-paper-plane"></i></button>
+                            <div id="upload-progress"></div>
+                        </form>
+                        </div>
+                    </div>
+                    <!-- ----------------------End chat---------------------------- -->
+
+
+                    <!-- ----------------------Start users------------------------- -->
+                    <div id="usersBlock" class="users hide ">
+                        <div class="borderText userText row ">users</div>
+                        <div id="usersList" class="chatStyle" style="overflow-y: scroll;">
+                            <!-- <div class="userdesign row justify-content-around align-items-center m-0 my-2 w-100">
+                                <div class="col-3 ">
+                                    <img class="pic "
+                                        src="https://jizaladv.com/catalog/view/theme/default/image/avatar.jpg "
+                                        width="50px " />
+                                </div>
+                                <div class="col ">Mohammed Samy <i class="fas fa-fist-raised"></i></div>
+
+                            </div>
+                            <div class="userdesign row align-items-center m-0 my-2 w-100">
+                                <div class="col-3 ">
+                                    <img class="pic "
+                                        src="https://img1.arabpng.com/20180529/gvy/kisspng-female-youtube-in-my-frame-of-mind-female-avatar-5b0cd573872302.5131979915275677315535.jpg "
+                                        width="50px " />
+
+                                </div>
+                                <div class="col">Yassmine Kamal <i class="fas fa-fist-raised"></i></div>
+                            </div>
+
+                        </div>
+                        <div class="userdesign row align-items-center m-0 my-2 w-100">
+                            <div class="col-3 ">
+                                <img class="pic "
+                                    src="https://img1.arabpng.com/20180529/gvy/kisspng-female-youtube-in-my-frame-of-mind-female-avatar-5b0cd573872302.5131979915275677315535.jpg "
+                                    width="50px " />
+
+                            </div>
+                            <div class="col">Yassmine Kamal <i class="fas fa-fist-raised"></i></div>
+                        </div> -->
+
+                        </div>
+                        <!-- ------------------------------------------------------------------------------- -->
+                    </div>
+            </div>
+            <!-- ---------------------- End users ------------------------- -->
+
+
+        </div>
+        </div>
+        
+      
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js "
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW "
+        crossorigin="anonymous "></script>
+    <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script src="/js/meetingHome.js "></script>
+    <script src="/js/meetingHomejquery.js "></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/uploadFile.js"></script>
+    <script>
+        var socket = io('/')
+        $(document).ready(() => {
+           
+            socket.on('file', handleFile);
+        });
+        
+    </script>
+    <script src="/js/meetingChat.js"></script>
+   
+    <script src="/js/mainmeeting/meetingVideo.js"></script>
+
+    <script src="/js/vote/staticvote.js"></script>
+    <script src="/js/mainmeeting/recording.js"></script>
+    <script src="/js/attendance&participants/attendence.js"></script>
+    <script src="/js/speech_to_text/speech_to_text.js"></script>
+</body>
+
+</html>

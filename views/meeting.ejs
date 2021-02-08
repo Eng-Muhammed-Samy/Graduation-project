@@ -1,0 +1,59 @@
+<%- include('parts/header')%>
+
+
+    <link rel="stylesheet" type="text/css" href="/css/meeting.css">
+    </head>
+
+    <body>
+
+        <div class="contain">
+            <form method="POST" action="/room" class="box justify-content-center">
+
+                <input class="textinputs py-3 my-3" type="text" name="meetingid" value="<%=meetingid%>"
+                    placeholder="Enter Meeting ID">
+                <% if(typeof validationErrors!='undefined' ){%>
+                    <% let meetingidError=validationErrors.find(err=> err.param === 'meetingid') %>
+                        <% if (meetingidError) { %>
+                            <span class="alert alert-danger ">
+                                <%= meetingidError.msg %>
+                            </span>
+                            <% } %>
+                                <% } %>
+                                    <% if(authError) { %>
+
+                                        <p class="alert alert-danger ">
+                                            <%= authError%>
+                                        </p>
+
+                                        <% } %>
+                                            <br>
+                                            <input class="textinputs py-3 my-3" type="text" name="clientname"
+                                                placeholder="Enter Your Name">
+                                            <% if(typeof validationErrors!='undefined' ){%>
+                                                <% let clientnameError=validationErrors.find(err=> err.param ===
+                                                    'clientname') %>
+                                                    <% if (clientnameError) { %>
+                                                        <span class="alert alert-danger ">
+                                                            <%= clientnameError.msg %>
+                                                        </span>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <br>
+                                                                <div
+                                                                    class="py-2 my-2 mt-4 d-flex justify-content-center">
+
+                                                                    <input
+                                                                        class="btnedit py-3 display-1 btn btn-outline-danger mx-2 w-50 rounded-pill"
+                                                                        type="submit" value="Join now">
+                                                                    <a class="btnedit py-3 display-1 btn btn-outline-danger mx-2 w-50 rounded-pill"
+                                                                        type="submit" href="back">Cancel</a>
+                                                                </div>
+
+
+
+            </form>
+
+        </div>
+    </body>
+
+    </html>

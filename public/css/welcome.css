@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-image: linear-gradient(rgb(0, 0, 0, .7), rgb(0, 0, 0, .7)), url('../img/welcome.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn {
+    font-size: 23px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.box ul {
+    list-style: none;
+    display: flex;
+    margin-top: 150px;
+    padding: 0px;
+}
+
+.box ul li {
+    font-size: 140px;
+}
+
+.box ul li:nth-child(1) {
+    color: red;
+}
+
+.box ul li:nth-child(2) {
+    color: white
+}
+
+.box ul li:nth-child(3) {
+    color: blue;
+}
+
+.box ul li:nth-child(4) {
+    color: white;
+}
+
+.box ul li:nth-child(5) {
+    color: red;
+}

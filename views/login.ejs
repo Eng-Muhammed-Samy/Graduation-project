@@ -1,0 +1,251 @@
+<%- include('parts/header')%>
+    <link rel="stylesheet" href="/css/login.css">
+    <style>
+        .AuthOther {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 1px solid;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .AuthOther i {
+            font-size: 24px;
+        }
+        
+        .AuthOther:hover {
+            cursor: pointer;
+            ;
+        }
+        
+        .google:hover {
+            border-color: #4285F4;
+            background-color: #4285F4;
+            color: white;
+        }
+        
+        .facebook:hover {
+            border-color: #0C88EF;
+            background-color: #0C88EF;
+            color: white;
+        }
+        
+        .twitter:hover {
+            border-color: #1DA1F2;
+            background-color: white;
+            color: #1DA1F2;
+        }
+        .backerror{
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #f95959;
+            font-family: "Montserrat", sans-serif;
+            font-size: 12px;
+            position: absolute;
+            bottom: -50px;
+            right: 0;
+       
+        }
+        .loginerror{
+            width: 60%;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #f95959;
+            outline: none;
+            position: absolute;
+            top: 40px;
+            left: 30%;
+            font-size: 16px;
+            color: #f95959;
+    }
+    .signuperror{
+        position: absolute;
+        background: transparent;
+        border: none;
+        top:  40%;
+        left: 47%;
+        font-size: 16px;
+        color: #f95959;
+        text-align: center;
+    }
+    </style>
+    </head>
+
+    <body>
+        <div class="ecran" id="particles-js">
+            <div class="container">
+                <section id="formHolder">
+
+                    <div class="row">
+
+                        <!-- Brand Box -->
+                        <div class="col-sm-6 brand">
+                            <a href="#" class="logo">ER <span>.</span></a>
+
+                            <div class="heading">
+                                <h2><span>E</span><span>I</span><span>R</span><span>A</span><span>Q</span></h2>
+                                <p>Your Right Choice</p>
+                            </div>
+
+                            <div class="success-msg">
+                                <p>Great! You are one of our members now</p>
+                                <a  class="profile">Your Profile</a>
+                            </div>
+                        </div>
+
+                        <!-- Form Box -->
+                        <div class="col-sm-6 form">
+
+                            <!-- Login Form -->
+                            <div class="login form-peice ">
+                                <form action="auth" method="post" class="login-form">
+                                    <div class="form-group">
+                                        <label for="loginemail">Email Adderss</label>
+                                        <input type="text" name="loginemail" id="loginemail" >
+                                        <% let emailError = validationErrors.find(err => err.param === 'loginemail') %>
+                                        <% if (emailError) { %>
+                                      
+                                            <span class="alert alert-danger backerror">
+                                                <%= emailError.msg %>
+                                            </span>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="loginPassword">Password</label>
+                                        <input type="password" name="loginPassword" id="loginPassword" >
+                                        <% let passwordError = validationErrors.find(err => err.param === 'loginPassword') %>
+                                        <% if (passwordError) { %>
+                                            <span class="alert alert-danger backerror">
+                                                <%= passwordError.msg %>
+                                            </span>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="CTA">
+                                        <input type="submit" value="Login">
+                                        <a href="#" class="switch">I'm New</a>
+                                    </div>
+                                </form>
+                                <% if(authErrorType =='signin'){%>
+                                    <% if(authError) { %>
+                                           
+                                        <p class="alert alert-danger loginerror">
+                                            <%= authError%>
+                                        </p>
+                                
+                                    <% } %>
+                                    <% } %>
+                            </div>
+                            <!-- End Login Form -->
+
+
+                            <!-- Signup Form -->
+                            <div class="signup form-peice switched">
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-4"></div>
+                                    <div class="col-1">
+                                        <a href="/google">
+                                        <span class="AuthOther google"><i class="fab fa-google"></i></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="AuthOther twitter"><i class="fab fa-twitter"></i></span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="AuthOther facebook"><i class="fab fa-facebook-f"></i></span>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+
+                                <form class="signup-form" action="signup" method="post">
+
+                                    <div class="form-group ">
+                                        <label for="name">Full Name</label>
+                                        <input type="text" name="username" id="name" class="name">
+                                        <span class="error"></span>
+                                        <% if(typeof validationErrors!='undefined'){%>
+                                        <% let usernameError = validationErrors.find(err => err.param === 'username') %>
+                                            <% if (usernameError) { %>
+                                                <span class="alert alert-danger backerror">
+                                                    <%= usernameError.msg %>
+                                                </span>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="email">Email Adderss</label>
+                                        <input type="text" name="emailAddress" class="email" id="email" >
+                                        <span class="error"></span>
+                                        <% if(typeof validationErrors!='undefined'){%>
+                                            <% let emailAddressError = validationErrors.find(err => err.param === 'emailAddress') %>
+                                                <% if (emailAddressError) { %>
+                                                    <span class="alert alert-danger backerror">
+                                                        <%= emailAddressError.msg %>
+                                                    </span>
+                                                <% } %>
+                                            <% } %>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="pass">
+                                        <span class="error"></span>
+                                        <% if(typeof validationErrors!='undefined'){%>
+                                            <% let passwordError = validationErrors.find(err => err.param === 'password') %>
+                                                <% if (passwordError) { %>
+                                                    <span class="alert alert-danger backerror">
+                                                        <%= passwordError.msg %>
+                                                    </span>
+                                                <% } %>
+                                            <% } %>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="passwordCon">Confirm Password</label>
+                                        <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
+                                        <span class="error"></span>
+                                        <% if(typeof validationErrors!='undefined'){%>
+                                            <% let passwordConError = validationErrors.find(err => err.param === 'passwordCon') %>
+                                                <% if (passwordConError) { %>
+                                                    <span class="alert alert-danger backerror">
+                                                        <%= passwordConError.msg %>
+                                                    </span>
+                                                <% } %>
+                                            <% } %>
+                                    </div>
+
+                                    <div class="CTA">
+                                        <input type="submit" value="Signup Now" id="submit">
+                                        <a href="#" class="switch">I have an account</a>
+                                    </div>
+                                </form>
+                            
+                                <% if(authErrorType =='signup'){%>
+                                    <% if(authError) { %>
+                                           
+                                        <p class="alert alert-danger signuperror">
+                                            <%= authError%>
+                                        </p>
+                                
+                                    <% } %>
+                                    <% } %>
+                            </div>
+                            <!-- End Signup Form -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/js/java.js"></script>
+    </body>
+
+    </html>

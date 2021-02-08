@@ -1,0 +1,198 @@
+<%- include('parts/header')%>
+
+    <link rel="stylesheet" href="/css/profile.css">
+<style>
+    .logout{   background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    }
+    .logoutbox{
+        position: absolute;
+        top: 25px;
+        left: 10px;
+        width: 200px;
+    }
+</style>
+    </head>
+
+    <body>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon bg-dark"></span>
+          </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <div class="container">
+                        <div class="row  ">
+                            <div class="col-1 mt-4" style="position: relative;"><span class="text-primary" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"></i>
+                            </span>
+                              <div class="dropdown-menu logoutbox" aria-labelledby="dropdownMenuButton">
+                                        <div   class="dropdown-item text-center">
+                                            
+                                            <form action="/logout" method="POST">
+                                              <input type="submit" value="Logout" class="logout">
+                                              </form>
+                                        </div>
+                                    </div>
+                            
+                            
+                            </div>
+                            <div class="col-8 d-flex justify-content-center mt-3">
+                                <ul class="navbar-nav ">
+                                   
+                                    <li nav-item>
+                                        <div class="navicon " style="margin: 5px;">
+                                            <i class="fa fa-home"></i>
+                                            <p>Home</p>
+                                        </div>
+                                    </li>
+                                    <li nav-item active>
+                                        <div class="navicon" style="margin: 5px;">
+                                            <i class="fa fa-comment-alt"></i>
+                                            <p>chat</p>
+                                        </div>
+                                    </li>
+                                    <li nav-item active>
+                                        <div class="navicon" style="margin: 5px;">
+                                            <i class="fa fa-user-clock"></i>
+                                            <p>meetings</p>
+                                        </div>
+                                    </li>
+                                    <li nav-item active>
+                                        <div class="navicon" style="margin: 5px;">
+                                            <i class="fa fa-users"></i>
+                                            <p>contacts</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-3 mt-3 d-flex flex-column align-items-center " data-toggle="modal" data-target="#exampleModal">
+                             
+                                    <div class="account ">
+                                     <img alt="User Pic" src="http://localhost:3000/upload_images/<%=pro_img%>" class="profile_img">
+                                 
+                                    </div>
+                              
+                                <p><%=loggedinuser%></p>
+                                <!-- Modal -->
+
+                            </div>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">add profile Image</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="cont-pro center">
+                                            <form class="form-horizontal" role="form" method="post" action="imageprofile" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                 
+                                                    <div >
+                                                        <input class="form-control" type="file" name="uploaded_image" accept=""/>
+                                                        <% if(typeof validationErrors!='undefined'){%>
+                                                            <% let imageError = validationErrors.find(err => err.param === 'uploaded_image') %>
+                                                                <% if (imageError) { %>
+                                                                    <p class="mt-1 alert alert-danger backerror">
+                                                                        <%= imageError.msg %>
+                                                                    </p>
+                                                                <% } %>
+                                                            <% } %>
+                                                       
+                                                    </div>
+                                                
+                                                </div> 
+                                                <button type="submit" class="mt-1 btn btn-primary" style="width: 466px;" >Save changes</button>
+                                                </form>
+                                         </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-sm-12 col-lg-5  mb-5 order-lg-2 divdate" style="margin-top:130px;">
+                    <div class="clock">
+                        <div class="center"></div>
+                        <div class="h-hand"></div>
+                        <div class="m-hand"></div>
+                        <div class="s-hand"></div>
+                    </div>
+                    <p id="spanDate"></p>
+                </div>
+                <div class="col-sm-12 col-lg-7 pt-5">
+                    <div class="row  d-flex align-items-center justify-content-center mb-3">
+                        <div class="col-sm-4 col-md-4  align-content-center d-flex align-items-center flex-column ">
+                           <a href="newmeeting">
+                            <div class="videomeeting">
+                                <i class="fas fa-video"></i>
+                            </div>
+                          </a>
+                            <div class="textunder mt-2">
+                                <h5>New Meeting</h5>
+                            </div>
+                       
+                        </div>
+
+                        <div class="col-sm-4  align-content-center d-flex align-items-center flex-column text-center">
+                            <div class="joinmeeting">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="textunder mt-2">
+                                <h5>Join</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center mb-3">
+                        <div class="col-sm-4  align-content-center d-flex align-items-center flex-column ">
+                            <a href="/schedule">
+                            <div class="Schedulingmeeting">
+                                <i class="fa fa-calendar-alt"></i>
+                            </div>
+                            </a>
+                            <div class="textunder mt-2">
+                                <h5>Scheduling</h5>
+                            </div>
+                        
+                        </div>
+
+                        <div class="col-sm-4  align-content-center d-flex align-items-center flex-column ">
+                            <div class="sharemeeting">
+                                <i class="fab fa-google-drive"></i>
+                            </div>
+                            <div class="textunder mt-2">
+                                <h5>My Data</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+        <script src="/js/clock.js"></script>
+        
+
+    </body>
+
+    </html>
