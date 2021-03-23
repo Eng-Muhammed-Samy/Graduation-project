@@ -1,5 +1,5 @@
 
-const MeetingInfoModel = require('../models/meetinginfo.model')
+const MeetingInfoModel = require('../models/meetingInfo.model');
 exports.destroyMeeting=(req,res,next)=>{
   const meetingid=req.session.meetingid;
     if(req.session.meetingcreater){
