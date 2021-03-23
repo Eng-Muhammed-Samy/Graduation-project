@@ -29,7 +29,14 @@
         }
 
         function handleUploadSuccess(resp) {
-            socket.emit('file', { name, file: { url: `/${resp.newFilename}`, filename: resp.originalFilename } });
+            socket.emit('file', {
+				name,
+				file: {
+					url: `/${resp.newFilename}`,
+					filename: resp.originalFilename,
+					messagewriter: logedInUser.innerText,
+				},
+			});
             $('#form')[0].reset();
             $('#upload-progress').text('');
         }
@@ -68,12 +75,14 @@
             $('#indicator').text(displayString);
         }
 
-        function handleFile(f) {
-            const messagewriter=logedInUser.innerText;
-            console.log(f)
-                   $('#chat').append(`
-                       <li class = "message"><b>${messagewriter} :<a target='_blank' href='${f.file.url}' download='${f.file.filename}'>${f.file.filename}</a>
+function handleFile(f) {
+	// habal
+
+	console.log(f);
+	$('#chat').append(`
+                       <li class = "message"><b>${f.file.messagewriter} :<a target='_blank' href='${f.file.url}'
+                        download='${f.file.filename}'>${f.file.filename}</a>
                        </li>
                    `);
-        }
+}
 
