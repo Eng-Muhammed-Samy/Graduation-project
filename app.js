@@ -35,7 +35,7 @@ var busboy = require('connect-busboy');
 const app = express();
 const server = require("http").createServer(app);
 const port = process.env.PORT || "3000";
-const io = require("Socket.io")(server);
+const io = require('socket.io')(server);
 
 const passport = require("passport");
 
