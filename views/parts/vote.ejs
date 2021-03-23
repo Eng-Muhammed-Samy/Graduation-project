@@ -1,0 +1,45 @@
+<div id="votingBlock" class="voting hide jumbotron" style="background-color: azure;">
+    <button id="addNewVote" class="btn btn-primary" data-toggle="collapse" data-target="#vote">add vote</button>
+
+    <div id="vote" class="collapse jumbutron">
+        <div class="form-group">
+            <label for="question">question:</label>
+            <input type="text" class="form-control" id="question">
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelections">select</label>
+            <select class="form-select" id="inputGroupSelections">
+                <option value="single">single</option>
+                <option value="multi">multi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="option1"> option:1</label>
+            <input type="text" class="form-control all-vote-options" placeholder="option:1" id="option1">
+        </div>
+        <div class="form-group">
+            <label for="option2"> option:2</label>
+            <input type="text" class="form-control all-vote-options" placeholder="option:2" id="option2">
+        </div>
+        <div class="form-group">
+            <label for="option3"> option:3</label>
+            <input type="text" class="form-control all-vote-options" placeholder="option:3" id="option3">
+        </div>
+
+        <Button class="btn btn-primary " id="saveVote">save vote</Button>
+    </div>
+
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#result">result</button>
+
+    <div id="result" class="collapse jumbutron">
+        <div id="">
+            <h3 id="resultQuestion"></h3>
+        </div>
+        <div id="voteResult">
+
+        </div>
+
+    </div>
+</div>

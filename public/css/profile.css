@@ -1,0 +1,258 @@
+body {
+    background-color: #f8f1f1;
+    overflow-x: hidden;
+}
+
+.navbar {
+    background-color: #edeaea;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom: 1px solid rgb(230 230 230);
+}
+
+.navbar i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+ul li p {
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+.navbar .navicon {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+}
+
+.navbar ul li {
+    text-align: center;
+    display: inline-block;
+    text-transform: capitalize;
+    font-weight: 700;
+    margin: 0px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgb(240, 239, 239);
+    margin-bottom: 5px;
+    width: 90px;
+    transition: all .3s;
+}
+
+.navbar ul li:not(:first-of-type):hover {
+    background-color: #c24914;
+    color: rgb(255, 255, 255);
+    border: 1px solid #c54f1c;
+    border-radius: 7px;
+}
+
+.navbar .account {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid black;
+}
+.profile_img{
+    width: 50px;
+    height: 50px;
+}
+.videomeeting,
+.joinmeeting,
+.Schedulingmeeting,
+.sharemeeting {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    background-color: #c54f1c;
+    transition: .3s;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.joinmeeting,
+.Schedulingmeeting,
+.sharemeeting {
+    background-color: #23120b;
+    transition: .3s;
+}
+
+.joinmeeting:hover,
+.Schedulingmeeting:hover,
+.sharemeeting:hover {
+    background-color: rgb(230, 8, 8);
+}
+
+.videomeeting:hover {
+    background-color: black;
+}
+
+.videomeeting i,
+.joinmeeting i,
+.Schedulingmeeting i,
+.sharemeeting i {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    font-size: 30px;
+    color: white;
+    transition: .4s;
+}
+
+.joinmeeting i {
+    color: rgb(47, 47, 90);
+    padding: 2px;
+    background-color: white;
+}
+
+.joinmeeting:hover i {
+    color: #aca6a6;
+}
+
+.sharemeeting:hover i,
+.videomeeting:hover i,
+.Schedulingmeeting:hover i {
+    color: white;
+}
+
+.textunder {
+    font-size: 18px;
+    text-align: center;
+    color: #2c2929;
+    /* font-weight: 600; */
+}
+
+.divdate {
+    width: 400px;
+    height: 100%;
+    border: 1px solid #3c59a9;
+    position: relative;
+    background-image: url('../img/wall.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.divdate p {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+}
+
+.clock {
+    width: 200px;
+    height: 200px;
+    background: url("https://www.up-00.com/i/00199/mw6cllmm9jr4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translate(45%, -50%);
+}
+
+.clock .center {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #3c59a9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 222;
+}
+
+.clock .s-hand {
+    width: 2px;
+    height: 40%;
+    background-color: #d30000;
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 20px;
+    transform-origin: bottom;
+}
+
+.clock .s-hand::before {
+    content: "";
+    width: inherit;
+    height: 15px;
+    background-color: #da9312;
+    position: absolute;
+    bottom: -15px;
+}
+
+.clock .s-hand::after {
+    content: "";
+    width: inherit;
+    height: 10px;
+    background-color: lawngreen;
+    position: absolute;
+    top: 10px;
+}
+
+.clock .m-hand {
+    width: 3px;
+    height: 33%;
+    background-color: #020522;
+    position: absolute;
+    left: calc(50% - 1.5px);
+    top: 33px;
+    transform-origin: bottom;
+}
+
+.clock .m-hand::before {
+    content: "";
+    width: 2px;
+    height: 15px;
+    background-color: #020522;
+    position: absolute;
+    bottom: -15px;
+}
+
+.clock .m-hand::after {
+    content: "";
+    width: inherit;
+    height: 10px;
+    background-color: lawngreen;
+    position: absolute;
+    top: 10px;
+}
+
+.clock .h-hand {
+    width: 3px;
+    height: 27%;
+    background-color: #020522;
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 45px;
+    transform-origin: bottom;
+}
+
+.clock .h-hand::before {
+    content: "";
+    width: 2px;
+    height: 15px;
+    background-color: #020522;
+    position: absolute;
+    bottom: -15px;
+}
+
+.clock .h-hand::after {
+    content: "";
+    width: inherit;
+    height: 10px;
+    background-color: lawngreen;
+    position: absolute;
+    top: 10px;
+}
