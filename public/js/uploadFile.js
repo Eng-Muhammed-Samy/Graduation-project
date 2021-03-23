@@ -80,7 +80,7 @@ function handleFile(f) {
 
 	console.log(f);
 	$('#chat').append(`
-                       <li class = "message"><b>${f.file.messagewriter} :<a target='_blank' href='${f.file.url}'
+                       <li class = "message"><b>${f.file.messagewriter} :<a target='_blank' href='/uploads/${f.file.url}'
                         download='${f.file.filename}'>${f.file.filename}</a>
                        </li>
                    `);

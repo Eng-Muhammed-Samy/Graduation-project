@@ -15,11 +15,11 @@ exports.getRoom = (req, res) => {
 			})
 			.catch((err) => {
 				req.flash('authError', err);
-				res.redirect('/joinmeeting');
+				res.redirect('/joinmeeting?meetingid=' + clientid);
 			});
 	} else {
 		req.flash('validationErrors', validationResult(req).array());
-		res.redirect('/joinmeeting');
+		res.redirect('/joinmeeting?meetingid=' + clientid);
 	}
 };
 // exports.geVideoRoom=(req,res,next)=>{
