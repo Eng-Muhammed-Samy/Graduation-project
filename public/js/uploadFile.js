@@ -32,7 +32,7 @@
             socket.emit('file', {
 				name,
 				file: {
-					url: `/${resp.newFilename}`,
+					url: `${resp.newFilename}`,
 					filename: resp.originalFilename,
 					messagewriter: logedInUser.innerText,
 				},

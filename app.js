@@ -54,7 +54,7 @@ app.use('/img', express.static(__dirname + "public/img"));
 app.set("views", path.join(__dirname, "views"));
 app.use('/upload_images', express.static(__dirname + "public/upload_images"));
 
-app.use(express.static('uploads'))
+app.use('/uploads', express.static('uploads'));
 app.use(busboy()); 
 
 
