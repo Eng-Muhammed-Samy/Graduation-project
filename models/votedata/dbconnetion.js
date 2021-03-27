@@ -1,10 +1,13 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/vote-system', {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true 
-})
+mongoose.connect(
+	'mongodb+srv://mine:mine@cluster0.rjjdk.mongodb.net/vote-system?retryWrites=true&w=majority',
+	{
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useFindAndModify: true,
+		useUnifiedTopology: true,
+	},
+);
 
 console.log('mongoDB connected  🔥');
