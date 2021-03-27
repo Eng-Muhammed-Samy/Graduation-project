@@ -125,10 +125,52 @@ app.get("/schedule", (req, res) => res.render("schedule"));
 
 app.use(cors());
 
+const Vote = mongoose.model(
+    'myvoteModel',
+    {
+        question: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        option1: {
+            key: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            value: {
+                type: Number,
+            },
+        },
+        option2: {
+            key: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            value: {
+                type: Number,
+            },
+        },
+        option3: {
+            key: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            value: {
+                type: Number,
+            },
+        },
+    },
+    'voteData',
+);
+const newVote = new Vote();
 
-io.on("connection", (socket) => {
-    RTCMultiConnectionServer.addSocket(socket)
-    socket.on("join-room", (roomid) => {
+io.on('connection', (socket) => {
+	RTCMultiConnectionServer.addSocket(socket);
+	socket.on('join-room', (roomid) => {
 		socket.join(roomid);
 
 		socket.on('join-meet', (data) => {
@@ -163,51 +205,6 @@ io.on("connection", (socket) => {
 					console.log(e);
 				});
 		});
-
-		// vote
-
-		const Vote = mongoose.model(
-			'myvoteModel',
-			{
-				question: {
-					type: String,
-					required: true,
-					trim: true,
-				},
-				option1: {
-					key: {
-						type: String,
-						required: true,
-						trim: true,
-					},
-					value: {
-						type: Number,
-					},
-				},
-				option2: {
-					key: {
-						type: String,
-						required: true,
-						trim: true,
-					},
-					value: {
-						type: Number,
-					},
-				},
-				option3: {
-					key: {
-						type: String,
-						required: true,
-						trim: true,
-					},
-					value: {
-						type: Number,
-					},
-				},
-			},
-			'voteData',
-		);
-        const newVote = new Vote();
 
 		//FileUploading
 		socket.on('file', (f, messagewriter) => {
@@ -245,7 +242,6 @@ io.on("connection", (socket) => {
 		});
 		socket.on('disconnect', () => {});
 	});
-    
 });
 
 /**
