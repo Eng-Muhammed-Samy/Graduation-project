@@ -72,3 +72,7 @@ exports.getProfileImage = (req, res) => {
 		res.redirect('/profile');
 	}
 };
+exports.getScedule = (req, res) => {
+	res.render('scedule');
+	res.end();
+};
