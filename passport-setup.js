@@ -48,7 +48,7 @@ passport.use(
 			clientID:
 				'1045211242467-8o7muise14ohj3g76nb699f0tifqe5l1.apps.googleusercontent.com',
 			clientSecret: 'Vp-s7DWKrqI5x8aBh2z4__h7',
-			callbackURL: 'http://localhost:3000/google/callback',
+			callbackURL: 'https://test-mysql-2021.herokuapp.com//google/callback',
 		},
 		async function (accessToken, refreshToken, profile, done) {
 			/*
