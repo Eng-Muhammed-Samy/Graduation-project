@@ -38,7 +38,8 @@ exports.authLogin =  (req, res, next) => {
                 req.session.loggedinuser = obj.username;
                 req.session.loggedin = true;
                 req.session.loggedinEmail=obj.userEmail;
-                 req.session.profileimg=obj.profileimg
+                req.session.profileimg = obj.profileimg;
+				req.session.type = obj.type;
                 res.redirect('/profile');
                 res.end();
             })
@@ -64,10 +65,12 @@ exports.logout = (req, res, next) => {
 exports.handleAuth = (request, response) => {
     
     if (request.session.loggedin) {
-        response.render('profile',{
-            loggedinuser:request.session.loggedinuser, validationErrors: request.flash('validationErrors'),
-            "pro_img":request.session.profileimg
-        });
+        response.render('profile', {
+			loggedinuser: request.session.loggedinuser,
+			validationErrors: request.flash('validationErrors'),
+			pro_img: request.session.profileimg,
+			acc_type: request.session.type,
+		});
     } else {
         response.redirect('/signin');
     }

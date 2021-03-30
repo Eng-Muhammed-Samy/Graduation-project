@@ -43,12 +43,13 @@ exports.authAccount = function(email, pass) {
                         const hashedpassword = results.rows[0]["password"];
                         bcrypt.compare(pass, hashedpassword, function(err, response) {
                             if(response) {
-                                res(
-                                    {"id":results.rows[0].id ,
-                                    "username":results.rows[0]['username'],
-                                    "userEmail":results.rows[0]['email'] ,
-                                    "profileimg":results.rows[0]['img_url']  
-                                    });
+                                res({
+									id: results.rows[0].id,
+									username: results.rows[0]['username'],
+									userEmail: results.rows[0]['email'],
+									profileimg: results.rows[0]['img_url'],
+									type: results.rows[0]['type'],
+								});
                             } else {
                                 rej('incorrect pass')
                             } 

@@ -66,16 +66,16 @@ const Knex = require('knex');
 const knex = Knex({
 	client: 'pg',
 	connection: {
-		host: 'ec2-54-166-242-77.compute-1.amazonaws.com',
-		user: 'qtejlwvicxvdmh',
-		password:
-			'c59fbd39aa2a102ddb2134322bbc959b5d951945ed4e54674369c1f8c2fda77a',
-		port: '5432',
-		database: 'd6hvuldrtd9gal',
-		ssl: {
-			rejectUnauthorized: false,
-		},
-	},
+        host: 'ec2-3-91-127-228.compute-1.amazonaws.com',
+        user: 'ykpkcybaauradp',
+        password:
+            '445569c30ab5ca4807c8f3d051a031b8c9dc2ed71709811ed048cda8aa0a03c5',
+        port: '5432',
+        database: 'd9ou5t95ridkjr',
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    },
 });
 
 const store = new KnexSessionStore({
@@ -111,33 +111,19 @@ app.use('/', roomRoutes)
 const connection = require('./models/init_database').connection
 
 // connect to database 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    connection.query(
-		"CREATE TABLE IF NOT EXISTS accounts (id SERIAL PRIMARY KEY,username VARCHAR(255), Email VARCHAR(255), password VARCHAR(255),img_url VARCHAR(255) DEFAULT 'default.png')",
-		function (err, result) {
-			if (err) throw err;
-		},
-	);
-    connection.query(
-        "CREATE TABLE IF NOT EXISTS meetingInfo (id SERIAL  PRIMARY KEY, meeting_id  VARCHAR(255),hostname  VARCHAR(255),meetingpassword VARCHAR(255),URL VARCHAR(255),validity BOOLEAN)",
-        function(err, result) {
-            if (err) ;
-            console.log(err)
-        }
-    );
-    
-});
-connection.connect(function (err) {
+connection.connect(async function (err) {
 	if (err) throw err;
 	console.log('Connected!');
-	connection.query(
-		'CREATE TABLE IF NOT EXISTS events (id  BIGSERIAL unique not null PRIMARY KEY,start_date TIMESTAMP,end_date TIMESTAMP, text VARCHAR(255),event_pid VARCHAR(255),event_length VARCHAR(255), rec_type VARCHAR(255),owner_id INT, CONSTRAINT fk_owner FOREIGN KEY(owner_id) REFERENCES accounts(id))',
-		function (err, result) {
-			if (err) throw err;
-		},
+	await connection.query(
+		"CREATE TABLE IF NOT EXISTS accounts (id SERIAL PRIMARY KEY,username VARCHAR(255), Email VARCHAR(255), password VARCHAR(255),img_url VARCHAR(255) DEFAULT 'default.png', type VARCHAR(20) DEFAULT 'normal')"
 	);
+	await connection.query(
+		'CREATE TABLE IF NOT EXISTS meetingInfo (id SERIAL  PRIMARY KEY, meeting_id  VARCHAR(255),hostname  VARCHAR(255),meetingpassword VARCHAR(255),URL VARCHAR(255),validity BOOLEAN)'
+    );
+    await connection.query(
+		'CREATE TABLE IF NOT EXISTS events (id  BIGSERIAL unique not null PRIMARY KEY,start_date TIMESTAMP,end_date TIMESTAMP, text VARCHAR(255),event_pid VARCHAR(255),event_length VARCHAR(255), rec_type VARCHAR(255),owner_id INT, CONSTRAINT fk_owner FOREIGN KEY(owner_id) REFERENCES accounts(id))'
+    );
+    console.log('tables created')
 });
 
 const router = require('./routes/router');

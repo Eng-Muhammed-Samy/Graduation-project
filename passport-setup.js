@@ -16,13 +16,13 @@ function createUser(name, email, profileImg) {
 					});
 				} else {
 					connection.query(
-						'INSERT INTO accounts (username,Email, img_url) VALUES ($1,$2,$3) RETURNING id',
+						'INSERT INTO accounts (username,Email, img_url, type) VALUES ($1,$2,$3, "google") RETURNING id',
 						[name, email, profileImg],
 						function (err, result) {
 							if (err) rej(err);
 							res({
 								id: result.rows[0].id,
-								profileimg:profileImg
+								profileimg: profileImg,
 							});
 						},
 					);
