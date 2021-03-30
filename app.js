@@ -64,18 +64,19 @@ const KnexSessionStore = require('connect-session-knex')(session);
 const Knex = require('knex');
 
 const knex = Knex({
-    client: 'pg',
-    connection: {
-    	host: 'ec2-23-21-229-200.compute-1.amazonaws.com',
-		user: 'pqaltkpihgddst',
-		password:'490fee745650b2d072bdcf56e09a917857415c9922df77a68c838e46e002206f',
+	client: 'pg',
+	connection: {
+		host: 'ec2-18-204-101-137.compute-1.amazonaws.com',
+		user: 'fmgspodjysewsi',
+		password:
+			'd0436c0f8bbdd18805b687560aaf258debea02bed65cd9b2f668655feb1bf27a',
 		port: '5432',
-		database: 'dfvf76on7los5',
-      	ssl: {
-          rejectUnauthorized: false,
-      },
-    },
-  });
+		database: 'dauble9af7n334',
+		ssl: {
+			rejectUnauthorized: false,
+		},
+	},
+});
 
 const store = new KnexSessionStore({
   knex,
