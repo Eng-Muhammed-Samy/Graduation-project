@@ -91,7 +91,6 @@ class Storage {
 			queryParams.push(params.from);
 			queryParams.push(params.to);
 		}
-
 		let result = await this._db.query(query, queryParams);
 		//    console.log(result)
 		result.rows.forEach((entry) => {
