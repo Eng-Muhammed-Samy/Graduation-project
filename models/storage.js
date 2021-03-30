@@ -8,9 +8,9 @@ class Storage {
 	}
 
 	// create a new event
-	async insert(data) {
+	async insert(data, owner_id) {
 		let sql =
-			'INSERT INTO events (start_date,end_date,text,event_pid,event_length,rec_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
+			'INSERT INTO events (start_date,end_date,text,event_pid,event_length,rec_type,owner_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id';
 
 		const result = await this._db.query(sql, [
 			data.start_date,
@@ -19,6 +19,9 @@ class Storage {
 			data.event_pid || 0, //!
 			data.event_length || 0, //!
 			data.rec_type, //!
+			owner_id,
+			
+			,
 		]);
 
 		// delete a single occurrence from a recurring series
@@ -82,15 +85,16 @@ class Storage {
 			action: 'deleted',
 		};
 	}
-	async getAll(params) {
-		let query = 'SELECT * FROM events';
-		let queryParams = [];
+	async getAll(params,owner_id) {
+		let query = 'SELECT * FROM events WHERE owner_id= $1';
+		let queryParams = [owner_id];
 
 		if (params.from && params.to) {
-			query += ' WHERE end_date >= $1 AND start_date < $2';
+			query += 'AND end_date >= $2 AND start_date < $3';
 			queryParams.push(params.from);
 			queryParams.push(params.to);
 		}
+
 		let result = await this._db.query(query, queryParams);
 		//    console.log(result)
 		result.rows.forEach((entry) => {
@@ -100,6 +104,7 @@ class Storage {
 		});
 		return result.rows;
 	}
+
 }
 
 module.exports = Storage;

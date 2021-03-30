@@ -22,14 +22,14 @@ module.exports = {
 		app.get(
 			`${prefix}`,
 			callMethod((req) => {
-				return storage.getAll(req.query);
+				return storage.getAll(req.query, req.session.userId);
 			}),
 		);
 
 		app.post(
 			`${prefix}`,
 			callMethod((req) => {
-				return storage.insert(req.body);
+				return storage.insert(req.body, req.session.userId);
 			}),
 		);
 

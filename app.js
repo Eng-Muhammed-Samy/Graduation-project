@@ -132,7 +132,7 @@ connection.connect(function (err) {
 	if (err) throw err;
 	console.log('Connected!');
 	connection.query(
-		'CREATE TABLE IF NOT EXISTS events (id  BIGSERIAL unique not null PRIMARY KEY,start_date TIMESTAMP,end_date TIMESTAMP, text VARCHAR(255),event_pid VARCHAR(255),event_length VARCHAR(255), rec_type VARCHAR(255))',
+		'CREATE TABLE IF NOT EXISTS events (id  BIGSERIAL unique not null PRIMARY KEY,start_date TIMESTAMP,end_date TIMESTAMP, text VARCHAR(255),event_pid VARCHAR(255),event_length VARCHAR(255), rec_type VARCHAR(255),owner_id INT, CONSTRAINT fk_owner FOREIGN KEY(owner_id) REFERENCES accounts(id))',
 		function (err, result) {
 			if (err) throw err;
 		},
