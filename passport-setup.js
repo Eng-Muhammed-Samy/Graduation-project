@@ -16,8 +16,8 @@ function createUser(name, email, profileImg) {
 					});
 				} else {
 					connection.query(
-						'INSERT INTO accounts (username,Email, img_url, type) VALUES ($1,$2,$3, "google") RETURNING id',
-						[name, email, profileImg],
+						'INSERT INTO accounts (username,Email, img_url, type) VALUES ($1,$2,$3, $4) RETURNING id',
+						[name, email, profileImg, 'google'],
 						function (err, result) {
 							if (err) rej(err);
 							res({
