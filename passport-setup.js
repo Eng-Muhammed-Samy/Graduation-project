@@ -3,7 +3,7 @@
 const passport = require('passport');
 const connection = require('./models/init_database').connection;
 
-function createUser(name, email) {
+function createUser(name, email, profileImg) {
 	return new Promise((res, rej) => {
 		connection.query(
 			'SELECT * FROM accounts WHERE email = $1',
@@ -16,11 +16,14 @@ function createUser(name, email) {
 					});
 				} else {
 					connection.query(
-						'INSERT INTO accounts (username,Email) VALUES ($1,$2)',
-						[name, email],
+						'INSERT INTO accounts (username,Email, img_url) VALUES ($1,$2,$3) RETURNING id',
+						[name, email, profileImg],
 						function (err, result) {
 							if (err) rej(err);
-							res();
+							res({
+								id: result.rows[0].id,
+								profileimg:profileImg
+							});
 						},
 					);
 				}
@@ -48,7 +51,7 @@ passport.use(
 			clientID:
 				'1045211242467-8o7muise14ohj3g76nb699f0tifqe5l1.apps.googleusercontent.com',
 			clientSecret: 'Vp-s7DWKrqI5x8aBh2z4__h7',
-			callbackURL: 'https://test-mysql-2021.herokuapp.com//google/callback',
+			callbackURL: 'https://test-mysql-2021.herokuapp.com/google/callback',
 		},
 		async function (accessToken, refreshToken, profile, done) {
 			/*
@@ -58,8 +61,9 @@ passport.use(
     */
 			const email = profile.emails[0].value;
 			const name = profile.displayName;
+			const profileImg = profile.photos[0].value;
 
-			createUser(name, email)
+			createUser(name, email, profileImg)
 				.then((obj) => {
 					profile.appId = obj.id;
 					profile.profileimg = obj.profileimg;
