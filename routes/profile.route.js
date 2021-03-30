@@ -10,7 +10,7 @@ const uploader = multer({
           cb(null, "public/upload_images/");
       },
       filename: (req, file, cb) => {
-          cb(null, file.originalname);
+          cb(null, req.session.userId + file.originalname);
       }
   })
 })

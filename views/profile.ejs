@@ -74,7 +74,7 @@
                              
                                     <div class="account ">
                                     <img alt="User Pic"
-                                        src="<%=acc_type === 'normal' ? ('/upload_images/' + pro_img) : pro_img%>"
+                                        src="<%=pro_img.startsWith('https') ? pro_img : ('/upload_images/' + pro_img)%>"
                                         class="profile_img">
                                  
                                     </div>
