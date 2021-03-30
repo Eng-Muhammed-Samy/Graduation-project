@@ -20,8 +20,6 @@ class Storage {
 			data.event_length || 0, //!
 			data.rec_type, //!
 			owner_id,
-			
-			,
 		]);
 
 		// delete a single occurrence from a recurring series
